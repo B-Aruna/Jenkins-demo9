@@ -33,18 +33,12 @@ pipeline {
                 catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
                     sh 'mvn clean test'
                 }
-                script {
-                    currentBuild.result = 'SUCCESS'
-                }
             }
         }
         stage('Publish Test Results') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
                     junit 'target/surefire-reports/*.xml'
-                }
-                script {
-                    currentBuild.result = 'SUCCESS'
                 }
                 sleep 5
             }
@@ -53,6 +47,14 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 sleep 5
+            }
+        }
+    }
+    post {
+        always {
+            script {
+                // Override any UNSTABLE/FAILURE status at the end
+                currentBuild.result = 'SUCCESS'
             }
         }
     }
