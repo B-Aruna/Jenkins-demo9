@@ -20,12 +20,12 @@ pipeline {
             steps {
                 echo 'Registering the metadata'
                 registerBuildArtifactMetadata(
-                    name: "jenkins-demo9",
-                    version: "4.0.0",
+                    name: "jenkins-demo99",
+                    version: "5.0.0",
                     type: "docker",
                     url: "http://localhost:1111",
                     digest: "6u637064707039346163663930",
-                    label: "prod"
+                    label: "pre-prod"
                 )
                 sleep 5
             }
