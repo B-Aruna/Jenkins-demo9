@@ -52,8 +52,7 @@ pipeline {
     post {
         always {
             script {
-                // Force build status to SUCCESS at the end
-                currentBuild.result = 'SUCCESS'
+                currentBuild.result = 'SUCCESS' // Force final build status
             }
         }
     }
