@@ -1,4 +1,3 @@
-catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
 pipeline {
     agent any
     environment {
@@ -36,13 +35,15 @@ pipeline {
             }
         }
         stage('Publish Test Results') {
-            steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
-                    junit 'target/surefire-reports/*.xml'
-                }
-                sleep 5
-            }
-        }
+    steps {
+        step([
+            $class: 'JUnitResultArchiver',
+            testResults: 'target/surefire-reports/*.xml',
+            allowEmptyResults: true,
+            healthScaleFactor: 0.0
+        ])
+    }
+}
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
@@ -57,5 +58,4 @@ pipeline {
             }
         }
     }
-}
 }
