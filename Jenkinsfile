@@ -16,7 +16,6 @@ pipeline {
         stage('Registering build artifact') {
             steps {
                 echo 'Registering the metadata'
-                echo 'Another echo to make the pipeline a bit more complex'
                 registerBuildArtifactMetadata(
                     name: "jenkins-demo9",
                     version: "4.0.0",
@@ -53,7 +52,7 @@ pipeline {
     post {
         always {
             script {
-                // Override any UNSTABLE/FAILURE status at the end
+                // Force build status to SUCCESS at the end
                 currentBuild.result = 'SUCCESS'
             }
         }
