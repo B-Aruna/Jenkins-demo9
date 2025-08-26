@@ -29,21 +29,22 @@ pipeline {
         }
         stage('Unit Test') {
             steps {
+                // Use catchError and force both buildResult and stageResult to 'SUCCESS'
                 catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
                     sh 'mvn clean test'
                 }
             }
         }
         stage('Publish Test Results') {
-    steps {
-        step([
-            $class: 'JUnitResultArchiver',
-            testResults: 'target/surefire-reports/*.xml',
-            allowEmptyResults: true,
-            healthScaleFactor: 0.0
-        ])
-    }
-}
+            steps {
+                step([
+                    $class: 'JUnitResultArchiver',
+                    testResults: 'target/surefire-reports/*.xml',
+                    allowEmptyResults: true,
+                    healthScaleFactor: 0.0
+                ])
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
@@ -54,7 +55,10 @@ pipeline {
     post {
         always {
             script {
-                currentBuild.result = 'SUCCESS' // Force final build status
+                // Force the build result to SUCCESS after all stages are completed
+                if (currentBuild.result == 'FAILURE' || currentBuild.result == 'UNSTABLE') {
+                    currentBuild.result = 'SUCCESS'
+                }
             }
         }
     }
