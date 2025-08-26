@@ -20,8 +20,8 @@ pipeline {
             steps {
                 echo 'Registering the metadata'
                 registerBuildArtifactMetadata(
-                    name: "jenkins-demo3-46632",
-                    version: "5.0.6",
+                    name: "jenkins-demo4-46632",
+                    version: "5.0.7",
                     type: "docker",
                     url: "http://localhost:1112",
                     digest: "6u637064707039346163663930",
