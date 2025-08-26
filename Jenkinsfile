@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                sleep 5
+                sleep 3
             }
         }
         stage('Registering build artifact') {
@@ -27,7 +27,7 @@ pipeline {
                     digest: "6u637064707039346163663930",
                     label: "pre-prod"
                 )
-                sleep 5
+                sleep 3
             }
         }
         stage('Unit Test') {
@@ -46,12 +46,6 @@ pipeline {
                     allowEmptyResults: true,
                     healthScaleFactor: 0.0
                 ])
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-                sleep 5
             }
         }
         stage('Install Grype') {
@@ -87,6 +81,11 @@ pipeline {
                 echo "=== Grype SARIF Report ==="
                 cat ${GRYPE_REPORT}
                 '''
+            }
+        }
+         stage('Deploy') {
+            steps {
+                echo 'Deploying...'
             }
         }
     }
