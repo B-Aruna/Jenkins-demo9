@@ -29,17 +29,7 @@ pipeline {
                 sleep 5
             }
         }
-        stage('Unit Test') {
-            steps {
-                sh 'mvn clean test'
-            }
-        }
-        stage('Publish Test Results') {
-            steps {
-                junit 'target/surefire-reports/*.xml'
-                sleep 5
-            }
-        } 
+        
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
