@@ -20,12 +20,23 @@ pipeline {
                 echo 'Another echo to make the pipeline a bit more complex'
                 registerBuildArtifactMetadata(
                     name: "jenkins-demo9",
-                    version: "3.0.0",
+                    version: "4.0.0",
                     type: "docker",
                     url: "http://localhost:1111",
                     digest: "6u637064707039346163663237383930",
                     label: "prod"
                 )
+                sleep 5
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
+        stage('Publish Test Results') {
+            steps {
+                junit 'target/surefire-reports/*.xml'
                 sleep 5
             }
         }
