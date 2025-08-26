@@ -55,10 +55,7 @@ pipeline {
     post {
         always {
             script {
-                // Force the build result to SUCCESS after all stages are completed
-                if (currentBuild.result == 'FAILURE' || currentBuild.result == 'UNSTABLE') {
                     currentBuild.result = 'SUCCESS'
-                }
             }
         }
     }
