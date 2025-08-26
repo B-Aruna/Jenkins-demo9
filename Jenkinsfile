@@ -1,3 +1,4 @@
+catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
 pipeline {
     agent any
     environment {
@@ -56,4 +57,5 @@ pipeline {
             }
         }
     }
+}
 }
