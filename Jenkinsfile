@@ -20,7 +20,7 @@ pipeline {
                 echo 'Another echo to make the pipeline a bit more complex'
                 registerBuildArtifactMetadata(
                     name: "jenkins-demo9",
-                    version: "1.0.0",
+                    version: "2.0.0",
                     type: "docker",
                     url: "http://localhost:1111",
                     digest: "6u637064707039346163663237383930",
